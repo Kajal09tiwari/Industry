@@ -25,7 +25,9 @@ app.use('/api/industries', require('./routes/industryRoutes'));
 app.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Server is running' });
 });
-
+app.get('/', (req, res) => {
+  res.send('Industry Management API is running 🚀');
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
