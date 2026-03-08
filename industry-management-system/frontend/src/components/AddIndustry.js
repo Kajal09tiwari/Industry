@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
 const AddIndustry = () => {
@@ -47,8 +47,7 @@ const AddIndustry = () => {
     setSuccess('');
 
     try {
-      await axios.post('http://localhost:5000/api/industries', formData);
-      setSuccess('Industry added successfully!');
+         await API.post('/industries', formData);      setSuccess('Industry added successfully!');
       setFormData({
         industryName: '',
         industryType: '',

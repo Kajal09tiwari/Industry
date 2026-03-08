@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from "../api/axios";
 import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
@@ -35,8 +35,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const queryParams = new URLSearchParams(searchParams).toString();
-      const response = await axios.get(`http://localhost:5000/api/industries?${queryParams}`);
-      setIndustries(response.data.industries);
+      const response = await API.get(`/industries?${queryParams}`);      setIndustries(response.data.industries);
       setPagination({
         currentPage: response.data.currentPage,
         totalPages: response.data.totalPages,
@@ -68,7 +67,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this industry?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/industries/${id}`);
+      await API.delete(`/industries/${id}`); 
         fetchIndustries(); // Refresh the list
       } catch (error) {
         setError('Failed to delete industry');
