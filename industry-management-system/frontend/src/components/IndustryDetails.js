@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';import { useParams, useNavigate, Link } from 'react-router-dom';
 import API from '../api/axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -12,16 +11,8 @@ const IndustryDetails = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
-    fetchIndustryDetails();
-  }, [id, isAuthenticated, navigate]);
-
-  const fetchIndustryDetails = async () => {
-    try {
+  
+const fetchIndustryDetails = useCallback(async () => {    try {
       setLoading(true);
 const response = await API.get(`/industries/${id}`);      setIndustry(response.data);
     } catch (error) {
@@ -30,7 +21,14 @@ const response = await API.get(`/industries/${id}`);      setIndustry(response.d
     } finally {
       setLoading(false);
     }
-  };
+}, [id]);
+useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
+    fetchIndustryDetails();
+}, [id, isAuthenticated, navigate, fetchIndustryDetails]);
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {

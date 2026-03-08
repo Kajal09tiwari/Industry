@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import API from "../api/axios";
 import { useAuth } from '../context/AuthContext';
@@ -23,19 +23,13 @@ const Dashboard = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-      return;
-    }
-    fetchIndustries();
-  }, [isAuthenticated, navigate, searchParams]);
-     
-  const fetchIndustries = async () => {
-    try {
+  
+    const fetchIndustries = useCallback(async () => {   
+       try {
       setLoading(true);
       const queryParams = new URLSearchParams(searchParams).toString();
-      const response = await API.get(`/industries?${queryParams}`);      setIndustries(response.data.industries);
+      const response = await API.get(`/industries?${queryParams}`);      
+      setIndustries(response.data.industries);
       setPagination({
         currentPage: response.data.currentPage,
         totalPages: response.data.totalPages,
@@ -47,8 +41,13 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
-
+}, [searchParams]);
+   useEffect(() => {
+  if (!isAuthenticated) {
+    navigate('/login');
+    return;
+  }
+  fetchIndustries();}, [isAuthenticated, navigate, fetchIndustries]);
   const handleSearchChange = (e) => {
     setSearchParams({
       ...searchParams,
