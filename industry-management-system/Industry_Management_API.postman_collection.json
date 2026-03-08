@@ -1,0 +1,230 @@
+{
+  "info": {
+    "name": "Industry Management System API",
+    "description": "API collection for Industry Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Industry@007\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Industries",
+      "item": [
+        {
+          "name": "Get All Industries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/industries?page=1&limit=10&sortBy=createdDate&sortOrder=desc",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "sortBy",
+                  "value": "createdDate"
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Industries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/industries?search=garment&industryType=manufacturing&city=jaipur",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "garment"
+                },
+                {
+                  "key": "industryType",
+                  "value": "manufacturing"
+                },
+                {
+                  "key": "city",
+                  "value": "jaipur"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Industry by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/industries/{{industryId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries", "{{industryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Industry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"industryName\": \"Garment Exporters Rajasthan\",\n  \"industryType\": \"Textile Manufacturing\",\n  \"contactPerson\": \"Rajesh Kumar\",\n  \"email\": \"contact@garment-india.com\",\n  \"phoneNumber\": \"+91-141-2224380\",\n  \"phone2\": \"\",\n  \"address\": \"718, 5th Floor, Anchor Mall, Ajmer Road, Jaipur - 302006\",\n  \"city\": \"Jaipur\",\n  \"state\": \"Rajasthan\",\n  \"country\": \"India\",\n  \"website\": \"https://garment-india.com\",\n  \"industryDescription\": \"Leading garment exporters in Rajasthan\",\n  \"industryLogo\": \"https://garment-india.com/images/logo.png\",\n  \"url\": \"https://garment-india.com/contact-us.php\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/industries",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries"]
+            }
+          }
+        },
+        {
+          "name": "Update Industry",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"industryName\": \"Updated Industry Name\",\n  \"industryType\": \"Updated Type\",\n  \"contactPerson\": \"Updated Contact\",\n  \"email\": \"updated@example.com\",\n  \"phoneNumber\": \"+91-9876543210\",\n  \"address\": \"Updated Address\",\n  \"city\": \"Updated City\",\n  \"state\": \"Updated State\",\n  \"country\": \"Updated Country\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/industries/{{industryId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries", "{{industryId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Industry",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/api/industries/{{industryId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "industries", "{{industryId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MDdmMWY3N2JjZjg2Y2Q3OTk0MzkwMTEiLCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzI5Nzk4NDUsImV4cCI6MTc3MzA2NjI0NX0.lhbegxehkHyFhe7TjC0qA83KNwDp7oZr7YX2nYNfPYM",
+      "type": "string"
+    },
+    {
+      "key": "industryId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}
